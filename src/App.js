@@ -3,7 +3,7 @@ import PetitionContainer from './components/PetitionsContainer'
 
 
 function App() {
-  const TITLE = `Rise above`
+  const TITLE = `Rise`
   const BASE_URL = `http://localhost:3000/`
 
   const [petitions, setPetitions] = useState([])
@@ -13,7 +13,6 @@ function App() {
     fetch(BASE_URL + 'petitions')
     .then(response => response.json())
     .then(data => {
-      console.log('data', data)
       setPetitions(data)
       setLoaded(true)
       return data})
@@ -23,11 +22,11 @@ function App() {
 
   const sendProps = {app_url: BASE_URL, petitions}
 
-  console.log('render')
   return (
     <div className="App">
       <header>
         <h1>{TITLE}</h1>
+        <h3>A place where people can come together to create change</h3>
       </header>
       <main>
       { loaded ? <PetitionContainer {...sendProps} /> : "no content"}

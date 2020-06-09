@@ -1,47 +1,63 @@
 import React, {useState} from 'react'
 import SignPetitionForm from './SignPetitionForm'
+import PetitionInformation from './PetitionInformation'
+import PetitionForm from './PetitionForm'
+import PetitionsContainer from './PetitionsContainer'
 
 export default function PetitionCard(props) {
-    const {
-        id, 
-        name, 
-        description, 
-        submit_to, 
-        signature_goal,  
-        signees
-    } = props 
-    const [edit, setEdit] = useState(false)
-    const save = () => {    }
+    const [mode, setMode] = useState('INFO')
 
-    
-    return edit 
-        ? (
-            <div className="petition-card">
-                <form>
-                    <p>Title</p>
-                    <input value={name} size='100'/> 
+    const switchDisplay = (str) => setMode(str) 
 
-                    <p>Description</p>
-                    <input type="text" value={description} size='300'/>
-             
+    const addSignature = (first_name, last_name, address) => {
+        fetch(props.app_url + 'petitions/' + props.id, {
+            method: 'POST', 
+            headers: {
+                "content-type": "application/json"
+            }, 
+            body: JSON.stringify({
+                first_name, 
+                last_name, 
+                address
+            })
+        })
+        window.location = '/'
+    }
 
-                    <input type="button" value="cancel" onClick={e => setEdit(!edit)} />
-                    <input type="button" value="save" onClick={e => save(!edit)} />
+    const createPetition = (name, description, submit_to, signature_goal) => {
+        fetch(props.app_url + 'petitions/', {
+            method: 'POST', 
+            headers: {
+                "content-type": "application/json"
+            }, 
+            body: JSON.stringify({
+                name, description, submit_to, signature_goal
+            })
+        })
+        window.location = '/'
+    }
 
-                </form>
-            </div> 
-        )
-        : (
-            <div className="petition-card">
-                <h3>{name}</h3>
-                <p>{description}</p>
-                <p>Submit to: {submit_to}</p>
-                <aside>
-                    <p>Signature Goal: {signature_goal}</p>
-                    <p>Signed By: { signees.length } </p>
-                    <button onClick={e => setEdit(!edit)}>edit</button>
-                    <button>sign</button>
-                </aside>
-            </div>
-        )
+    const updatePetition = (name, description, submit_to, signature_goal) => {
+        fetch(props.app_url + 'petitions/' + props.id, {
+            method: 'PATCH', 
+            headers: {
+                "content-type": "application/json"
+            }, 
+            body: JSON.stringify({
+                name, description, submit_to, signature_goal
+            })
+        })
+        window.location = '/'
+
+    }
+
+    const sendProps = {...props, switchDisplay, createPetition, addSignature, updatePetition}
+
+    const getDisplay = (mode) => {
+        if(mode == 'EDIT') return <PetitionForm {...sendProps} /> 
+        else if(mode == "SIGN") return <SignPetitionForm {...sendProps}/>
+        else return <PetitionInformation {...sendProps}/> 
+    }
+    return getDisplay(mode)
 }
+

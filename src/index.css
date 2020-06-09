@@ -1,32 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+
 body {
   margin: 0;
-  font-family: monospace; 
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #131112; 
+  background-color: #279AF1;
+}
+header {
+  text-align: center;
 }
 main {
+  padding-left: 2vw;
   display: flex;
 }
 
 .petition-container {
   width: 100%;
   flex-wrap: wrap;
+  margin: 10px 10px;
 }
 .petition-container div {
   flex-direction: row;
   flex-wrap: wrap;
-  border: 1px solid red;
+  background-color: rgb(52, 147, 158);
+  border-radius: 5px;
+  border: 1px solid black;
 }
 .petition-container div .petition-card {
   display: block;
-  max-width: 30vh;
   justify-items: left;
-  border: 1px solid green;
-  color: blue
+  background-color: #60656F;
+  color: #F7F7FF; 
+  box-shadow: 2px 5px black;
 }
 
-
+.center {
+  padding: 10px 10px;
+  text-align: center;
+}
 .petition-card {
   border-radius: 5px;
   border: 1px solid black;
   padding: 3vh;
   margin: 3vh;
+}
+.petition-card form {
+  text-align: left;
+}
+.petition-card form input {
+  width: 100%;
+}
+.btn, button {
+  padding: 10px 10px;
+  border-radius: 5px;
+  font-variant: small-caps;
+  margin-right: 10px;
+}
+
+.petition-card form div {
+  padding: 10px 10px;
+}
+
+br { 
+  min-height: 10px;
+  margin-top: 10px;
+  display: block;
+}
+.desc {
+  width: 100%;
+  height: 4rem;
 }
