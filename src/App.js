@@ -1,24 +1,69 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import PetitionContainer from './components/PetitionsContainer'
 
 function App() {
+  const TITLE = `Rise above`
+  const BASE_URL = `http://localhost:3000/`
+
+  // const [signees, setSignees] = useState([])
+  const [petitions, setPetitions] = useState([])
+  const [loaded, setLoaded] = useState(false)
+
+  // const getSignees = () => {
+  //   fetch(BASE_URL + "signees")
+  //     .then(response => response.json())
+  //     .then(data => saveSignees(data))
+  // }
+
+  // const saveSignees = (data) => {
+  //   const parsedSignees = data.map(s => {
+  //     return {
+  //       first_name: s.first_name, 
+  //       last_name: s.last_name, 
+  //       address: s.address
+  //     }
+  //   })
+  //   setSignees(parsedSignees)
+  //   setLoaded(true)
+  // }
+  
+  // const savePetitions = (data) => {
+  //   console.log('data', data)
+  //   const parsedPetitions = data.map(p => {
+  //     const pet = {
+  //       id: p.id, 
+  //       description: p.description, 
+  //       name: p.name, 
+  //       signature_goal: p.signature_goal, 
+  //       submit_to: p.submit_to
+  //     }
+  //     return pet 
+  //   })
+  //   setPetitions(parsedPetitions)
+  // }
+
+  const getPetitions = () => {
+    fetch(BASE_URL + 'petitions')
+        .then(response => response.json())
+        .then(data => setPetitions(data))
+        .then(result => setLoaded(true))
+  }
+
+  useEffect(() => {
+    getPetitions() 
+  },[])
+
+
+  const sendProps = {app_url: BASE_URL, petitions}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h1>{TITLE}</h1>
       </header>
+      <main>
+        { loaded ? <PetitionContainer {...sendProps} /> : null}
+      </main>
     </div>
   );
 }

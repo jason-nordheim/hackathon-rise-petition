@@ -1,13 +1,32 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: monospace; 
+}
+main {
+  display: flex;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.petition-container {
+  width: 100%;
+  flex-wrap: wrap;
+}
+.petition-container div {
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: 1px solid red;
+}
+.petition-container div .petition-card {
+  display: block;
+  max-width: 30vh;
+  justify-items: left;
+  border: 1px solid green;
+  color: blue
+}
+
+
+.petition-card {
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 3vh;
+  margin: 3vh;
 }
